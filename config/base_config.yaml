@@ -1,0 +1,29 @@
+# Core assumptions for the simulation
+
+capacity_cost: 5.0     # cost per kW of peak capacity ie. how much it cost to provide enough network capacity
+                       # to meet the maximum electricity demand
+
+elasticity:
+  demand_reduction: 0.05   # % total usage reduction per unit price increase
+  demand_shift: 0.15       # % load that can move to off-peak times
+
+opt_in:
+  rule: "bill_lower_only"  # customer opts in only if bill decreases
+  default_rate: 0.30       # expected opt-in proportion
+
+tariffs:
+  baseline_flat:
+    type: flat
+    price: 0.30   # $ per kWh
+
+  baseline_tou:
+    type: tou
+    peak_price: 0.45
+    offpeak_price: 0.18
+
+  reform_capacity_tiers:
+    type: capacity_tiered
+    tiers:
+      - {threshold: 50, price: 5}
+      - {threshold: 60, price: 5.83}
+      - {threshold: 90, price: 37.22}
